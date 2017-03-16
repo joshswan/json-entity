@@ -1,0 +1,43 @@
+{
+  "name": "json-entity",
+  "version": "0.1.0",
+  "description": "Entity class for controlling and formatting data objects",
+  "main": "index.js",
+  "repository": "joshswan/json-entity",
+  "bugs": "https://github.com/joshswan/json-entity/issues",
+  "author": "Josh Swan <josh@sportifik.com>",
+  "license": "MIT",
+  "keywords": [
+    "json",
+    "entity",
+    "api",
+    "response",
+    "grape",
+    "mask",
+    "whitelist",
+    "formatting"
+  ],
+  "files": [
+    "index.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint index.js",
+    "test": "nyc mocha test"
+  },
+  "devDependencies": {
+    "coveralls": "^2.12.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "should": "^11.2.1",
+    "sinon": "^2.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
