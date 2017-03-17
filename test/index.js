@@ -17,7 +17,6 @@ const Entity = require('../');
  */
 it('should return an instance of Entity', (done) => {
   should(new Entity({})).be.instanceof(Entity);
-  should(Entity({})).be.instanceof(Entity);
 
   done();
 });
