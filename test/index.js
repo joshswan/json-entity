@@ -226,8 +226,16 @@ it('should merge arrays/objects when "merge" option specified', (done) => {
   done();
 });
 
-it('should not include non-array/object data when "merge" option specified', (done) => {
+it('should not include property when "merge" option specified and value is not array/object', (done) => {
   new Entity({ location: { merge: true } }).represent({ location: 'San Francisco' }).should.eql({});
+
+  done();
+});
+
+it('should throw an error when "merge" option specified for array AND non-array properties', (done) => {
+  const User = new Entity({ role: true, roles: { as: 'role', merge: true } });
+
+  should(() => User.represent({ role: 'admin', roles: ['admin', 'user'] })).throw('json-entity: attempting to merge array with non-array for property role!');
 
   done();
 });
