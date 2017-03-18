@@ -75,6 +75,7 @@ class Entity {
    * Available Options (all optional):
    * - as      {String}   Expose property using a different name
    * - default {Any}      Provide a default value to use if property does not exist
+   * - filter  {Function} Filter an array using specified function
    * - if      {Function} Expose property only if specified function returns truthy
    * - merge   {Boolean}  Combine arrays or merge object keys into parent object
    * - using   {Entity}   Use specified Entity to represent value before exposing
@@ -85,9 +86,10 @@ class Entity {
    */
   expose(property, options = {}) {
     // Extract valid options
-    const opts = pick(options, ['as', 'default', 'if', 'merge', 'using', 'value']);
+    const opts = pick(options, ['as', 'default', 'filter', 'if', 'merge', 'using', 'value']);
 
     // Validate options
+    if (opts.filter) assert(isFunction(opts.filter), error('"filter" must be a function!'));
     if (opts.if) assert(isFunction(opts.if), error('"if" must be a function!'));
     if (opts.using) assert(Entity.isEntity(opts.using), error('"using" must be an Entity!'));
 
@@ -160,6 +162,14 @@ class Entity {
 
       // Apply "using" Entity to value, if specified
       if (opts.using) val = opts.using.represent(val, options);
+
+      // Apply "filter" option, if specified
+      if (opts.filter) {
+        // Throw an error if val is not an array
+        assert(isArray(val), error(`filter cannot be applied to non-array value for property ${opts.as}!`));
+
+        val = val.filter(item => opts.filter(item, data, options));
+      }
 
       // Check if merge option specified and if val is an array
       if (opts.merge) {

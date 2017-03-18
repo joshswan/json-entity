@@ -101,7 +101,7 @@ const Example = new Entity({
   fullName: { as: 'name' },
 });
 
-Example.represent({ fullName: 'Josh Swan' }));
+Example.represent({ fullName: 'Josh Swan' });
 // { name: "Josh Swan" }
 ```
 
@@ -112,21 +112,32 @@ const Example = new Entity({
   admin: { default: false },
 });
 
-Example.represent({}));
+Example.represent({});
 // { admin: false }
 ```
 
+### filter `Function`
+Filter an array value based on a function. The function is invoked with three arguments: `item` (the current item of the array), `data` (the full data object supplied to `represent`), and `options` (the options object supplied to `represent`). Note: An error will be thrown if `filter` is applied to a non-array value.
+```javascript
+const Example = new Entity({
+  roles: { filter: (role, user, options) => role !== 'admin' },
+});
+
+Example.represent({ roles: ['admin', 'user'] });
+// { roles: ['user'] }
+```
+
 ### if `Function`
-Conditionally expose a field based on function return value ("truthy" = expose). The function is invoked with the same arguments as `represent` (i.e. `data, [options={}]`);
+Conditionally expose a field based on function return value ("truthy" = expose). The function is invoked with the same arguments as `represent` (i.e. `data, [options={}]`).
 ```javascript
 const Example = new Entity({
   country: { if: (obj, opts) => obj.country !== 'US' },
 });
 
-Example.represent({ country: 'CA' }));
+Example.represent({ country: 'CA' });
 // { country: "CA" }
 
-Example.represent({ country: 'US' }));
+Example.represent({ country: 'US' });
 // { }
 ```
 
@@ -138,7 +149,7 @@ const Example = new Entity({
   address: { merge: true },
 });
 
-Example.represent({ id: 1, address: { city: 'San Francisco', region: 'CA', country: 'US' } }));
+Example.represent({ id: 1, address: { city: 'San Francisco', region: 'CA', country: 'US' } });
 // { id: 1, city: "San Francisco", region: "CA", country: "US" }
 
 const Example2 = new Entity({
@@ -163,7 +174,7 @@ const Example = new Entity({
   user: { using: User },
 });
 
-Example.represent({ user: { id: 1, firstName: 'Josh', lastName: 'Swan', location: 'San Francisco, CA' } }));
+Example.represent({ user: { id: 1, firstName: 'Josh', lastName: 'Swan', location: 'San Francisco, CA' } });
 // { user: { id: 1, firstName: "Josh" } }
 ```
 
@@ -175,7 +186,7 @@ const Example = new Entity({
   type: { value: 'User' },
 });
 
-Example.represent({ id: 1, type: 'AdminUser' }));
+Example.represent({ id: 1, type: 'AdminUser' });
 // { id: 1, type: "User" }
 ```
 

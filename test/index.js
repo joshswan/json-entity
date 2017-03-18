@@ -105,6 +105,14 @@ it('should include allowed options in this.properties object', (done) => {
   done();
 });
 
+it('should throw when specified "filter" options is not a function', (done) => {
+  const instance = new Entity();
+
+  should(() => instance.expose('id', { filter: true })).throw('json-entity: "filter" must be a function!');
+
+  done();
+});
+
 it('should throw when specified "if" option is not a function', (done) => {
   const instance = new Entity();
 
@@ -171,6 +179,22 @@ it('should alias property when "as" option specified', (done) => {
 
 it('should use "default" option as value when undefined', (done) => {
   new Entity({ admin: { default: false } }).represent({}).should.eql({ admin: false });
+
+  done();
+});
+
+it('should filter arrays when "filter" option specified', (done) => {
+  const User = new Entity({ roles: { filter: role => role === 'admin' } });
+
+  User.represent({ roles: ['admin', 'user'] }).should.eql({ roles: ['admin'] });
+
+  done();
+});
+
+it('should throw an error when "filter" applied to non-array property', (done) => {
+  const User = new Entity({ obj: { filter: Boolean } });
+
+  should(() => User.represent({ obj: {} })).throw('json-entity: filter cannot be applied to non-array value for property obj!');
 
   done();
 });
