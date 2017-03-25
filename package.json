@@ -1,6 +1,6 @@
 {
   "name": "json-entity",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Entity class for controlling and formatting data objects",
   "main": "index.js",
   "repository": "joshswan/json-entity",
