@@ -91,7 +91,7 @@ it('should add exposed property to this.properties array', (done) => {
   done();
 });
 
-it('should include allowed options in this.properties object', (done) => {
+it('should include supplied options in this.properties object', (done) => {
   const instance = new Entity();
   const using = new Entity();
 
@@ -99,7 +99,7 @@ it('should include allowed options in this.properties object', (done) => {
   instance.expose('_id', opts);
 
   instance.properties.should.eql([
-    { as: 'id', key: '_id', default: null, if: opts.if, merge: true, mode: 'val', using, value: null },
+    { as: 'id', key: '_id', default: null, if: opts.if, merge: true, mode: 'val', using, value: null, other: 'something' },
   ]);
 
   done();

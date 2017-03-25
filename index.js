@@ -10,7 +10,6 @@ const assert = require('assert');
 const isArray = require('lodash/isArray');
 const isFunction = require('lodash/isFunction');
 const isObject = require('lodash/isObject');
-const pick = require('lodash/pick');
 
 // Error message helper
 const error = err => `json-entity: ${err}`;
@@ -85,20 +84,17 @@ class Entity {
    * @param {Object} [options={}] Expose options (as, default, if, merge, using, value)
    */
   expose(property, options = {}) {
-    // Extract valid options
-    const opts = pick(options, ['as', 'default', 'filter', 'if', 'merge', 'using', 'value']);
-
     // Validate options
-    if (opts.filter) assert(isFunction(opts.filter), error('"filter" must be a function!'));
-    if (opts.if) assert(isFunction(opts.if), error('"if" must be a function!'));
-    if (opts.using) assert(Entity.isEntity(opts.using), error('"using" must be an Entity!'));
+    if (options.filter) assert(isFunction(options.filter), error('"filter" must be a function!'));
+    if (options.if) assert(isFunction(options.if), error('"if" must be a function!'));
+    if (options.using) assert(Entity.isEntity(options.using), error('"using" must be an Entity!'));
 
     // Set "mode" flag to avoid having to check later if value option exists and/or is function
-    if (opts.value !== undefined) opts.mode = isFunction(opts.value) ? 'fn' : 'val';
+    if (options.value !== undefined) options.mode = isFunction(options.value) ? 'fn' : 'val';
 
-    this.properties.push(Object.assign(opts, {
+    this.properties.push(Object.assign(options, {
       // Make sure "as" is defined as final property value (alias or current name)
-      as: opts.as || property,
+      as: options.as || property,
       // Specify actual property key for extracting value
       key: property,
     }));
