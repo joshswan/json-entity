@@ -89,6 +89,12 @@ const representation = User.represent(user);
 // { id: 1, firstName: "Josh" }
 
 console.log(user === representation); // false
+
+// Supply an options object that will be passed to `filter` and `if` functions. You can also set
+// `safe` to `false` in your options object to enable strict mode and throw an error on any missing
+// property, regardless of `require` option (see below).
+const representation = User.represent(user, { options });
+const throws = User.represent({}, { safe: false });
 ```
 
 ## Options
@@ -160,6 +166,17 @@ const Example2 = new Entity({
 
 Example2.represent({ id: 1, roles: ['admin'], scopes: ['user'] });
 // { id: 1, roles: ['admin', 'user'] }
+```
+
+### require `Boolean`
+Throw an error if this property is absent from data supplied to `represent`.
+```javascript
+const Example = new Entity({
+  id: { require: true },
+});
+
+Example.represent({});
+// Error: data missing required property id!
 ```
 
 ### using `Entity`

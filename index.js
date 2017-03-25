@@ -77,6 +77,7 @@ class Entity {
    * - filter  {Function} Filter an array using specified function
    * - if      {Function} Expose property only if specified function returns truthy
    * - merge   {Boolean}  Combine arrays or merge object keys into parent object
+   * - require {Boolean}  Throw an error if this key is missing in data during represent
    * - using   {Entity}   Use specified Entity to represent value before exposing
    * - value   {Any}      Provide a hard-coded value that will always be used for property
    *
@@ -150,6 +151,9 @@ class Entity {
         // Apply default, if specified
         if (opts.default !== undefined) {
           val = opts.default;
+        } else if (opts.require || options.safe === false) {
+          // Throw error if property required or safe mode disabled when calling represent
+          throw new Error(error(`data missing required property ${opts.as}!`));
         } else {
           // Otherwise, skip property
           return result;

@@ -240,6 +240,14 @@ it('should throw an error when "merge" option specified for array AND non-array 
   done();
 });
 
+it('should throw an error if "require" option specified and property not supplied', (done) => {
+  const User = new Entity({ id: { require: true } });
+
+  should(() => User.represent({})).throw('json-entity: data missing required property id!');
+
+  done();
+});
+
 it('should use Entity representation when "using" option specified', (done) => {
   const Location = new Entity({
     city: true,
@@ -321,6 +329,14 @@ it('should pass represent options object to "using" nested Entities', (done) => 
 
   stub.calledOnce.should.eql(true);
   stub.calledWith(location, options).should.eql(true);
+
+  done();
+});
+
+it('should throw an error on missing property if safe mode disabled for represent', (done) => {
+  const User = new Entity({ id: true });
+
+  should(() => User.represent({}, { safe: false })).throw('json-entity: data missing required property id!');
 
   done();
 });
