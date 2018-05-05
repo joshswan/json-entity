@@ -248,7 +248,7 @@ it('should throw an error if "require" option specified and property not supplie
   done();
 });
 
-it('should use Entity representation when "using" option specified', (done) => {
+it('should use Entity representation when "using" option specified and value is an object', (done) => {
   const Location = new Entity({
     city: true,
     region: true,
@@ -264,6 +264,8 @@ it('should use Entity representation when "using" option specified', (done) => {
       region: 'CA',
     },
   });
+
+  User.represent({ location: null }).should.eql({ location: null });
 
   done();
 });

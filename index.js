@@ -161,7 +161,7 @@ class Entity {
       }
 
       // Apply "using" Entity to value, if specified
-      if (opts.using) val = opts.using.represent(val, options);
+      if (opts.using && isObject(val)) val = opts.using.represent(val, options);
 
       // Apply "filter" option, if specified
       if (opts.filter) {
