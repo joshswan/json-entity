@@ -1,7 +1,7 @@
 /*!
  * JSON-Entity
  *
- * Copyright 2017-2018 Josh Swan
+ * Copyright 2017-2019 Josh Swan
  * Released under the MIT license
  * https://github.com/joshswan/json-entity/blob/master/LICENSE
  */
