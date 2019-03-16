@@ -3,6 +3,7 @@
   "version": "0.3.1",
   "description": "Entity class for controlling and formatting data objects",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": "joshswan/json-entity",
   "bugs": "https://github.com/joshswan/json-entity/issues",
   "author": "Josh Swan <josh@sportifik.com>",
