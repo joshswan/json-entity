@@ -1,6 +1,6 @@
 {
   "name": "json-entity",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Entity class for controlling and formatting data objects",
   "main": "index.js",
   "types": "index.d.ts",
@@ -20,6 +20,7 @@
   ],
   "files": [
     "index.js",
+    "index.d.ts",
     "LICENSE",
     "README.md"
   ],
