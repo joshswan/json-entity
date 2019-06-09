@@ -26,21 +26,23 @@ declare namespace Entity {
     safe?: boolean;
   }
 
-  export interface EntityProperty<T = any> {
+  export interface EntityPropertyConfig<T = any> {
     [key: string]: any;
     as?: string;
-    autoload?: any;
     default?: any;
     filter?: (item: any, obj: T, options: EntityOptions) => boolean;
     if?: (obj: T, options: EntityOptions) => boolean;
-    key: string;
     merge?: boolean;
     require?: boolean;
     using?: Entity;
     value?: (obj: T, options: EntityOptions) => any | any;
   }
 
+  export interface EntityProperty<T = any> extends EntityPropertyConfig<T> {
+    key: string;
+  }
+
   export interface EntityConfig<T = any> {
-    [key: string]: boolean | ((obj: T, options: EntityOptions) => any) | EntityProperty;
+    [key: string]: boolean | ((obj: T, options: EntityOptions) => any) | EntityPropertyConfig<T>;
   }
 }
